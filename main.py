@@ -1,29 +1,30 @@
 from flask import Flask, request
-from constants import HELP_TEXT
-from logic import dayoff, meeting
+from constants import DAYOFF_HELP_TEXT, MEETING_HELP_TEXT
+from logic import dayoff_func, meeting_func
 app = Flask(__name__)
+app.config.from_object('settings.local.DevelopConfig')
 
 
-@app.route('/', methods=['POST'])
-def main():
+@app.route('/dayoff/', methods=['POST'])
+def dayoff():
     print(request.form)
     user = request.form['user_name']
     text = request.form['text']
     if '' == text:
-        return HELP_TEXT
+        return DAYOFF_HELP_TEXT
 
-    if '-h' in text:
-        return HELP_TEXT
+    print(app.config)
+    return dayoff_func(user, text, app.config)
 
-    if '-list' in text:
-        # call list
-        return HELP_TEXT
 
-    if '請假' in text:
-        return dayoff(user, text)
+@app.route('/meeting/', methods=['POST'])
+def meeting_func():
+    text = request.form['text']
+    if '' == text:
+        return MEETING_HELP_TEXT
 
     if '會議' in text:
-        return meeting(text)
+        return meeting_func(text)
 
 
 @app.route('/call_back/', methods=['POST'])

@@ -1,3 +1,4 @@
-SERVICE_NAME = 'slack_bot_with_gc'
-SERVICE_VERSION = '0.0.1'
-DEVELOPER_KEY = ""
+class BaseConfig(object):
+    SERVICE_NAME = 'calendar'
+    SERVICE_VERSION = 'v3'
+    DEVELOPER_KEY = ""
