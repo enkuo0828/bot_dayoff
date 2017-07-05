@@ -1,4 +1,4 @@
 .idea
 __pycache__/
 settings/local.py
-settings/client_*.json
+settings/*.json
