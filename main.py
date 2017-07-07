@@ -10,13 +10,11 @@ app.secret_key = str(uuid.uuid4())
 
 @app.route('/dayoff/', methods=['POST'])
 def dayoff():
-    print(request.form)
     user = request.form['user_name']
     text = request.form['text']
     if '' == text:
         return DAYOFF_HELP_TEXT
 
-    print(app.config)
     return dayoff_create(user, text, app.config)
 
 

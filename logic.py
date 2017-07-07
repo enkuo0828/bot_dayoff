@@ -1,4 +1,5 @@
 import time
+from flask import jsonify
 from service import Service
 from werkzeug.wrappers import Response
 import rfc3339
@@ -32,7 +33,15 @@ def dayoff_create(user, text, config):
         calendarId=config.get('CALENDAR_ID'),  # config.get('CALENDAR_ID'),
         body=event
     ).execute()
-    return ans + ' event_id:{}'.format(created_event['id'])
+    result = {
+        "response_type": "in_channel",
+        "text": ans,
+    }
+    return jsonify(result)
+
+
+def dayoff_list(config):
+    pass
 
 
 def meeting_func(user, text):
