@@ -34,6 +34,7 @@ Service
 1. 將secret.json 移到 settings中
 2. 新增{config_name}.py 到 settings中
 3. 填入下面
+
 ```
 from .base import BaseConfig
 
@@ -42,6 +43,7 @@ class {config_name}(BaseConfig):
     SERVICE_JSON_KEY = "./settings/{secret.json}"
     DOMAIN_NAME = "{DOMAIN_NAME}"
 ```
+
 4. 修改main.py 中的
 ```app.config.from_object('settings.{py_filename}.{config class name}')```
 5. Flask Run Command
