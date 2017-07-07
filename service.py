@@ -12,7 +12,7 @@ class Service(object):
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
             config.get('SERVICE_JSON_KEY'), scopes)
         delegate_creds = credentials.create_delegated(
-            '{}@istayreal.com'.format(user)
+            '{}@{}'.format(user, config.get('DOMAIN_NAME'))
         )
         http = delegate_creds.authorize(httplib2.Http())
         return build(
