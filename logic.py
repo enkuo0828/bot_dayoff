@@ -4,9 +4,9 @@ from service import Service
 
 def dayoff_create(user, text, config):
     times = text.split(' ')
-    if len(times) < 6:
+    if len(times) < 2:
         return "錯誤的時間資訊：請輸入日期與時間範圍\n" \
-               "範例：2017 0101 0800 2017 0101 1200 請假理由"
+               "範例：201701010800 201701011200 請假理由"
     desc, reason = make_day0ff_result(user, times)
     # TODO 請假
     service = Service.get_service(config, user)
@@ -30,13 +30,15 @@ def make_dayoff_event(reason, desc, times):
         'description': desc,
         'start': {
             'dateTime': '{}-{}-{}T{}:{}:00'.format(
-                times[0], times[1][:2], times[1][2:], times[2][:2], times[2][2:]
+                times[0][:4], times[0][4:6], times[0][6:8],
+                times[0][8:10], times[0][10:]
             ),
             'timeZone': 'Asia/Taipei'
         },
         'end': {
             'dateTime': '{}-{}-{}T{}:{}:00'.format(
-                times[3], times[4][:2], times[4][2:], times[5][:2], times[5][2:]
+                times[1][:4], times[1][4:6], times[1][6:8],
+                times[1][8:10], times[1][10:]
             ),
             'timeZone': 'Asia/Taipei'
         }
@@ -44,12 +46,12 @@ def make_dayoff_event(reason, desc, times):
 
 
 def make_day0ff_result(user, times):
-    year_a = times[0]
-    day_a = times[1]
-    hour_a = times[2]
-    year_b = times[3]
-    day_b = times[4]
-    hour_b = times[5]
+    year_a = times[0][:4]
+    day_a = times[0][4:8]
+    hour_a = times[0][8:]
+    year_b = times[1][:4]
+    day_b = times[1][4:8]
+    hour_b = times[1][8:]
     same_year = False
     same_month = False
     same_day = False
@@ -60,8 +62,8 @@ def make_day0ff_result(user, times):
     if day_a == day_b:
         same_day = True
     # 有填請假理由
-    if len(times) == 7:
-        reason = times[6]
+    if len(times) == 3:
+        reason = times[2]
     else:
         reason = '{}請假'.format(user)
 
