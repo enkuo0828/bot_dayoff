@@ -55,7 +55,7 @@ def make_day0ff_result(user, times):
     same_day = False
     if year_a == year_b:
         same_year = True
-    if day_a[:2] == day_b[2:]:
+    if day_a[:2] == day_b[:2]:
         same_month = True
     if day_a == day_b:
         same_day = True
