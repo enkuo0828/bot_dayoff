@@ -1,0 +1,9 @@
+---
+- hosts: web
+  remote_user: ansible
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: en.kuo
+    - name: Pull master branch
+      git: repo=git@gitlab.srcorp:stayreal/slack_bot_with_gc.git dest=/var/www/slack_bot_with_gc version=master accept_hostkey=yes

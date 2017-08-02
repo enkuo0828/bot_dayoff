@@ -1,5 +1,6 @@
 from flask import jsonify
-from service import Service
+
+from app.service import Service
 
 
 def dayoff_create(user, text, config):
